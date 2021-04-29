@@ -1,4 +1,5 @@
 ## CONFIG FILE
+# next.config.js
 module.exports = {
     env: {
         AUTH0_DOMAIN:'',
