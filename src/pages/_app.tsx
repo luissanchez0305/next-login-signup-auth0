@@ -1,32 +1,16 @@
-import * as React from 'react'
-import App from 'next/app'
-import Head from 'next/head'
-import { Auth0Provider } from '../lib/auth0-spa'
+import React, { ReactElement } from 'react';
+import App from 'next/app';
+import { AuthProvider } from '../components/providers/Auth';
 
-export default class MyApp extends App {
-  render () {
-    const { Component, pageProps, router } = this.props
-
-    const onRedirectCallback = appState => {
-      console.log('appState', appState)
-
-      router.push(appState && appState.targetUrl ? appState.targetUrl : '/')
-    }
-
+class MyApp extends App {
+  render(): ReactElement {
+    const { Component, pageProps } = this.props;
     return (
-      <React.Fragment>
-        <Head>
-          <title>My App</title>
-        </Head>
-        <Auth0Provider
-          domain={process.env.AUTH0_DOMAIN}
-          clientId={process.env.AUTH0_CLIENT_ID}
-          redirectUri={process.env.AUTH0_REDIRECT_URI}
-          onRedirectCallback={onRedirectCallback}
-        >
-          <Component {...pageProps} router={router} />
-        </Auth0Provider>
-      </React.Fragment>
-    )
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    );
   }
 }
+
+export default MyApp;

@@ -1,23 +1,14 @@
-import * as React from 'react'
-import { NextPage } from 'next'
-import { useAuth0 } from '../lib/auth0-spa'
-import NavigationBar from '../components/navigationBar'
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { userIsAuthenticated } from '../components/providers/Auth';
 
-interface Props {}
+export default function Index(): JSX.Element {
+  const isAuthenticated = userIsAuthenticated();
 
-const Page: NextPage<Props> = () => {
-  const { user } = useAuth0()
-
-  return (
-    <div>
-      <h1>Initial Page</h1>
-
-      <div>
-        {user && user.nickname}
-        <NavigationBar />
-      </div>
-    </div>
-  )
+  const router = useRouter();
+  const path = isAuthenticated ? '/admin/dashboard' : '/auth/login';
+  useEffect(() => {
+    router.push(path);
+  });
+  return <div />;
 }
-
-export default Page

@@ -1,0 +1,19 @@
+.git
+.github
+.next
+.vscode
+.node_modules
+
+coverage
+docker-compose.yml
+README.md
+CHANGELOG.md
+CODEOWNERS
+./github
+
+# Node Files #
+node_modules
+npm-debug.log
+npm-debug.log.*
+
+./dist
